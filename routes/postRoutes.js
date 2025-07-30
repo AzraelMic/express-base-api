@@ -15,7 +15,49 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+
+/**
+ * @swagger
+ * /posts:
+ *   post:
+ *     summary: Créer un post avec fichier et description
+ *     tags:
+ *       - Posts
+ *     consumes:
+ *       - multipart/form-data
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               user_id:
+ *                 type: integer
+ *               description:
+ *                 type: string
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       201:
+ *         description: Post créé
+ *       400:
+ *         description: Requête invalide
+ */
 router.post('/', upload.single('file'), postController.createPost);
+
+/**
+ * @swagger
+ * /posts:
+ *   get:
+ *     summary: Récupère tous les posts
+ *     tags:
+ *       - Posts
+ *     responses:
+ *       200:
+ *         description: Liste des posts
+ */
 router.get('/', postController.getAllPosts);
 
 module.exports = router;
