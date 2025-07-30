@@ -13,6 +13,18 @@ db.serialize(() => {
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL
     )`);
+
+    db.run(`
+    CREATE TABLE IF NOT EXISTS posts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        description TEXT NOT NULL,
+        filename TEXT,
+        path TEXT,
+        mimetype TEXT,
+        size INTEGER,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )`);
 });
 
 module.exports = db;
